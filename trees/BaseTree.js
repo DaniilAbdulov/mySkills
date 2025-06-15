@@ -208,6 +208,23 @@ class BinaryTree {
 
     return findDepth(root);
   }
+
+  // вращение дерева
+  // последоватльно разоворачиваем каждый узел
+  invertTree(root) {
+    if (!root) {
+      return root;
+    }
+
+    const temp = root.left;
+    root.left = root.right;
+    root.right = temp;
+
+    this.invertTree(root.left);
+    this.invertTree(root.right);
+
+    return root;
+  }
 }
 
 // Пример использования
@@ -221,23 +238,4 @@ tree.insert(7);
 tree.insert(12);
 tree.insert(18);
 
-console.time('depthIterative');
-const depthIterative = tree.findDepthIterative();
-console.timeEnd('depthIterative');
-
-console.time('depthRecursive');
-const depthRecursive = tree.findDepthRecursive();
-console.timeEnd('depthRecursive');
-
-// console.log('In-order traversal:');
-// tree.inOrderTraversal((value) => console.log(value)); // 3, 5, 7, 10, 12, 15, 18
-
-// console.log('Search 7:', tree.search(7)); // true
-// console.log('Search 20:', tree.search(20)); // false
-
-// tree.remove(15);
-// console.log('After removing 15 (in-order):');
-// tree.inOrderTraversal((value) => console.log(value)); // 3, 5, 7, 10, 12, 18
-
-// console.log('Min value:', tree.findMin()); // 3
-// console.log('Max value:', tree.findMax()); // 18
+const revertedTree = tree.invertTree(tree.root);
