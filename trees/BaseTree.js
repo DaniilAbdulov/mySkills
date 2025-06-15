@@ -225,6 +225,27 @@ class BinaryTree {
 
     return root;
   }
+
+  sumOfLeftLeaves() {
+    const {root} = this;
+    let sum = 0;
+
+    const traversal = (node) => {
+      if (node !== null) {
+        const leftChild = node.left;
+
+        if (leftChild && !leftChild.left && !leftChild.right) {
+          sum += leftChild.value;
+        }
+
+        traversal(node.left);
+        traversal(node.right);
+      }
+    };
+
+    traversal(root);
+    return sum;
+  }
 }
 
 // Пример использования
@@ -237,5 +258,3 @@ tree.insert(3);
 tree.insert(7);
 tree.insert(12);
 tree.insert(18);
-
-const revertedTree = tree.invertTree(tree.root);
