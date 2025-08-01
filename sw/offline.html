@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Оффлайн</title>
+    <style>
+      body { font-family: Arial, text-align: center; padding: 20px; }
+    </style>
+  </head>
+  <body>
+    <h1>Вы оффлайн!</h1>
+    <p>Попробуйте подключиться к интернету.</p>
+    <button id="send-notification">Отправить уведомление</button>
+  </body>
+  <script>
+    document
+      .getElementById('send-notification')
+      .addEventListener('click', () => {
+        if ('serviceWorker' in navigator) {
+          navigator.serviceWorker.ready.then((registration) => {
+            registration.showNotification('Привет!', {
+              body: 'Вы нажали на кнопку!',
+              icon: '/icon.png',
+              vibrate: [200, 100, 200],
+            });
+          });
+        }
+      });
+  </script>
+  <script src="/main.js"></script>
+</html>
